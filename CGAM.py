@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import json
 
 import pandas as pd
+
+import os
 
 from CoolProp.CoolProp import PropsSI as CPSI
 
@@ -11,9 +14,26 @@ from tespy.components import (
     DiabaticCombustionChamber, Sink, Source
 )
 from tespy.connections import Connection, Bus
-from tespy.tools import document_model
-from chemical_exergy.libChemExAhrendts import Chem_Ex
+import plotly.graph_objects as go
+from plotly.offline import plot
+from tespy.tools import document_model, ExergyAnalysis
+from tespy import __datapath__
 
+def load_Chem_Ex_json(lib="Ahrendts", ChemEx=None):
+    """
+    Function for loading different standard libraries for chemical exergy analysis
+    :param lib: String for choosing desired library
+    :param ChemEx: Bool if Chemical Exergy is used
+    :return:
+    """
+    if ChemEx != None:
+        with open(os.path.join(__datapath__, "ChemEx", f"libChemEx{lib}.json"), "r") as f:
+            Chem_Ex = json.load(f)
+
+    return Chem_Ex
+
+
+Chem_Ex = load_Chem_Ex_json(ChemEx=True)
 
 fluid_list = ['O2', 'H2O', 'N2', 'CO2', 'CH4']
 nwk = Network(fluids=fluid_list, p_unit='bar', T_unit='C')
@@ -93,6 +113,21 @@ heat_output = Bus('heat output')
 power_output = Bus('power output')
 fuel_input = Bus('fuel input')
 
+E_F = Bus("Fuel_Bus")
+E_F.add_comps({"comp": ch4, "base": "bus"},
+              {"comp": amb, "base": "bus"})
+
+E_P = Bus("Product_Bus")
+E_P.add_comps({"comp": cmp, "base": "bus"},
+              {"comp": tur},
+              {"comp": ls},
+              {"comp": fw, "base": "bus"})
+
+E_L = Bus("Loss_Bus")
+E_L.add_comps({"comp": ch})
+
+nwk.add_busses(E_L, E_P, E_F)
+
 heat_output.add_comps(
     {'comp': eco, 'char': -1},
     {'comp': eva, 'char': -1})
@@ -129,37 +164,51 @@ for idx in result.index:
 result.loc["AC", "P"] = cmp.P.val
 result.loc["EXP", "P"] = tur.P.val
 
-result.to_csv("validation/cgam-tespy-results.csv")
+# result.to_csv("validation/cgam-tespy-results.csv")
 
-exergy_data = pd.DataFrame(columns=["e_PH", "e_CH", "E"])
+ean = ExergyAnalysis(nwk, [E_F], [E_P], [E_L])
+ean.analyse(c1.p.val, c1.T.val, Chem_Ex)
+ean.print_results()
 
-for c in nwk.conns["object"]:
-    c.get_physical_exergy(1.013e5, 298.15)
-    c.get_chemical_exergy(1.013e5, 298.15, Chem_Ex)
-    if c.label in ['1', '2', '3']:
-        c.Ex_chemical, c.ex_chemical = 0, 0
+links, nodes = ean.generate_plotly_sankey_input()
+fig = go.Figure(go.Sankey(
+     arrangement="snap",
+     node={
+         "label": nodes,
+         'pad': 11,
+         'color': 'orange'},
+     link=links))
+plot(fig, filename='CGAM_sankey.html')
 
-    exergy_data.loc[c.label] = [
-        c.ex_physical / 1e3, c.ex_chemical / 1e3,
-        (c.Ex_chemical + c.Ex_physical) / 1e6
-    ]
-
-exergy_data.to_csv("cgam-tespy-exergy.csv")
-
-fmt = {
-    'latex_body': True,
-    'include_results': True,
-    'HeatExchanger': {
-        'params': ['Q', 'ttd_l', 'ttd_u', 'pr1', 'pr2']},
-    'Condenser': {
-        'params': ['Q', 'ttd_l', 'ttd_u', 'pr1', 'pr2']},
-    'Connection': {
-        'p': {'float_fmt': '{:,.4f}'},
-        's': {'float_fmt': '{:,.4f}'},
-        'h': {'float_fmt': '{:,.2f}'},
-        'fluid': {'include_results': False}
-    },
-    'include_results': True,
-    'draft': False
-}
-document_model(nwk, filename='CGAM_model_report.tex', fmt=fmt)
+# exergy_data = pd.DataFrame(columns=["e_PH", "e_CH", "E"])
+#
+# for c in nwk.conns["object"]:
+#     c.get_physical_exergy(1.013e5, 298.15)
+#     c.get_chemical_exergy(1.013e5, 298.15, Chem_Ex)
+#     if c.label in ['1', '2', '3']:
+#         c.Ex_chemical, c.ex_chemical = 0, 0
+#
+#     exergy_data.loc[c.label] = [
+#         c.ex_physical / 1e3, c.ex_chemical / 1e3,
+#         (c.Ex_chemical + c.Ex_physical) / 1e6
+#     ]
+#
+# exergy_data.to_csv("cgam-tespy-exergy.csv")
+#
+# fmt = {
+#     'latex_body': True,
+#     'include_results': True,
+#     'HeatExchanger': {
+#         'params': ['Q', 'ttd_l', 'ttd_u', 'pr1', 'pr2']},
+#     'Condenser': {
+#         'params': ['Q', 'ttd_l', 'ttd_u', 'pr1', 'pr2']},
+#     'Connection': {
+#         'p': {'float_fmt': '{:,.4f}'},
+#         's': {'float_fmt': '{:,.4f}'},
+#         'h': {'float_fmt': '{:,.2f}'},
+#         'fluid': {'include_results': False}
+#     },
+#     'include_results': True,
+#     'draft': False
+# }
+# document_model(nwk, filename='CGAM_model_report.tex', fmt=fmt)
