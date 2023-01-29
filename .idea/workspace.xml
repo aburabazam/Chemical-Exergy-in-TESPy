@@ -5,7 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e690a6e-a9a2-42f5-8445-cb310024b185" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/cgam-tespy-exergy.csv" beforeDir="false" afterPath="$PROJECT_DIR$/cgam-tespy-exergy.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CGAM_sankey.html" beforeDir="false" afterPath="$PROJECT_DIR$/CGAM_sankey.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stable/components/Compressor.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/Compressor.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stable/components/DiabaticCombustionChamber.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/DiabaticCombustionChamber.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stable/components/HeatExchanger.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/HeatExchanger.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stable/components/Sink.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/Sink.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stable/components/Source.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/Source.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stable/components/Turbine.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/Turbine.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stable/components/bus.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/bus.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stable/components/char_line.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/char_line.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stable/components/char_map.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/char_map.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stable/connections.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/connections.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,14 +44,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/aburabazam/PycharmProjects/Chemical-Exergy-in-TESPy",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyDependenciesConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/aburabzam/PycharmProjects/Chemical-Exergy-in-TESPy&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/../tespy" />
@@ -47,7 +59,7 @@
   </component>
   <component name="RunManager" selected="Python.CGAM">
     <configuration name="CGAM" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Chemical-Exergy-in-TESPy" />
+      <module name="tespy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -55,7 +67,7 @@
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CGAM.py" />
@@ -177,13 +189,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../tespy/src/tespy/tools/analyses.py</url>
-          <line>423</line>
-          <option name="timeStamp" value="2" />
+          <line>740</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../tespy/src/tespy/tools/analyses.py</url>
-          <line>729</line>
-          <option name="timeStamp" value="3" />
+          <line>570</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
