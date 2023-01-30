@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e690a6e-a9a2-42f5-8445-cb310024b185" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CGAM_sankey.html" beforeDir="false" afterPath="$PROJECT_DIR$/CGAM_sankey.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stable/components/Compressor.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/Compressor.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stable/components/DiabaticCombustionChamber.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/DiabaticCombustionChamber.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stable/components/HeatExchanger.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/HeatExchanger.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stable/components/Sink.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/Sink.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stable/components/Source.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/Source.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stable/components/Turbine.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/Turbine.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stable/components/bus.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/bus.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stable/components/char_line.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/char_line.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stable/components/char_map.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/char_map.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stable/connections.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/connections.csv" afterDir="false" />
-    </list>
+    <list default="true" id="4e690a6e-a9a2-42f5-8445-cb310024b185" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
