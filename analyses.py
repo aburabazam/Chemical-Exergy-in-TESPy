@@ -290,9 +290,6 @@ class ExergyAnalysis:
             ['E_P', 'E_F', 'E_D', 'E_L'] +
             [b.label for b in internal_busses + E_F + E_P + E_L])
 
-        self.reserved_fkt_groups_chem_ex = (
-            ['E_PH', 'e_T', 'e_M', 'E_PH', 'E_T', 'E_M', 'e_CH', 'E_CH'] +
-            [b.label for b in internal_busses + E_F + E_P + E_L])
 
 
         self.grassmann_diagram = {}
@@ -345,12 +342,7 @@ class ExergyAnalysis:
         self.sankey_data = {}
         for label in self.reserved_fkt_groups:
             self.sankey_data[label] = pd.DataFrame(
-                columns=['value', 'cat'], dtype='object')
-
-        self.sankey_data_chem_ex = {}
-        for label in self.reserved_fkt_groups_chem_ex:
-            self.sankey_data_chem_ex[label] = pd.DataFrame(
-                columns=['value', 'cat'], dtype='object')
+                columns=['value', 'chemical_exergy', 'physical_exergy', 'cat'], dtype='object')
 
         # exergy balance of components
         for cp in self.nw.comps['object']:
@@ -371,7 +363,7 @@ class ExergyAnalysis:
             elif cp.fkt_group not in self.sankey_data:
                # print(cp)
                 self.sankey_data[cp.fkt_group] = pd.DataFrame(
-                    columns=['value', 'cat'], dtype='object')
+                    columns=['value', 'chemical_exergy', 'physical_exergy', 'cat'], dtype='object')
 
             self.evaluate_busses(cp)
 
@@ -473,7 +465,7 @@ class ExergyAnalysis:
                         self.sankey_data[b.label].loc[
                             cp.fkt_group, 'value'] += E_F
                     else:
-                        self.sankey_data[b.label].loc[cp.fkt_group] = [E_F, cat]
+                        self.sankey_data[b.label].loc[cp.fkt_group] = [E_F, 0., 0., cat]
                 else:
                     E_P = cp.E_bus * cp.calc_bus_efficiency(b)
                     self.bus_data.loc[cp.label, 'E_P'] = E_P
@@ -494,7 +486,7 @@ class ExergyAnalysis:
                         self.sankey_data[cp.fkt_group].loc[
                             b.label, 'value'] += E_P
                     else:
-                        self.sankey_data[cp.fkt_group].loc[b.label] = [E_P, cat]
+                        self.sankey_data[cp.fkt_group].loc[b.label] = [E_P,0.,0.,cat]
 
                 self.bus_data.loc[cp.label, 'base'] = b.comps.loc[cp, 'base']
                 self.bus_data.loc[cp.label, 'group'] = cp.fkt_group
@@ -509,25 +501,24 @@ class ExergyAnalysis:
             E_D = self.aggregation_data[
                 self.aggregation_data['group'] == group
             ]['E_D'].sum()
-            self.sankey_data[group].loc['E_D'] = [E_D, 'E_D']
-
+            self.sankey_data[group].loc['E_D'] = [E_D, 0., 0., 'E_D']
         # establish connections for fuel exergy via bus balance
         for b in self.E_F:
             input_value = self.calculate_group_input_value(b.label)
             self.sankey_data['E_F'].loc[b.label] = [
-                self.sankey_data[b.label]['value'].sum() - input_value, 'E_F']
+                self.sankey_data[b.label]['value'].sum() - input_value,0.,0., 'E_F']
 
         # establish connections for product exergy via bus balance
         for b in self.E_P:
             input_value = self.calculate_group_input_value(b.label)
             self.sankey_data[b.label].loc['E_P'] = [
-                input_value - self.sankey_data[b.label]['value'].sum(), 'E_P']
+                input_value - self.sankey_data[b.label]['value'].sum(),0.,0., 'E_P']
 
         # establish connections for exergy loss via bus balance
         for b in self.E_L:
             input_value = self.calculate_group_input_value(b.label)
             self.sankey_data[b.label].loc['E_L'] = [
-                input_value - self.sankey_data[b.label]['value'].sum(), 'E_L']
+                input_value - self.sankey_data[b.label]['value'].sum(),0.,0., 'E_L']
 
         for fkt_group, data in self.sankey_data.items():
             comps = self.component_data[
@@ -539,17 +530,31 @@ class ExergyAnalysis:
                     if conn.target.label not in comps:
                         target_group = self.component_data.loc[
                             conn.target.label, 'group']
-                        target_value = conn.Ex_physical
+                        target_value = conn.Ex_physical  #todo: zielgruppe zweimal setzen mit neuer spalte für target_group , index nur numerisch
                         target_value += conn.Ex_chemical
+                        target_value_chemical = conn.Ex_chemical
+                        target_value_physical = conn.Ex_physical
                         cat = hlp.single_fluid(conn.fluid.val)
                         if cat is None:
                             cat = 'mix'
+                        # if target_group in data.index:
+                        #     self.sankey_data[fkt_group].loc[target_group, 'value'] += target_value_physical
+                        #     self.sankey_data[fkt_group]['target_group_physical'][target_group] += target_value_physical
+                        #     self.sankey_data[fkt_group]['target_group_chemical'][target_group] += target_value_chemical
+                        # else:
+                        #     self.sankey_data[fkt_group].loc[target_group] = [target_value_physical, cat]
+                        #     self.sankey_data[fkt_group]['target_group_physical'][target_group] = target_value_physical
+                        #     self.sankey_data[fkt_group]['target_group_chemical'][target_group] = target_value_chemical
                         if target_group in data.index:
                             self.sankey_data[fkt_group].loc[
                                 target_group, 'value'] += target_value
+                            self.sankey_data[fkt_group].loc[
+                                target_group, 'physical_exergy'] += target_value_physical
+                            self.sankey_data[fkt_group].loc[
+                                target_group, 'chemical_exergy'] += target_value_chemical
                         else:
                             self.sankey_data[fkt_group].loc[target_group] = [
-                                target_value, cat]
+                                target_value, target_value_chemical, target_value_physical, cat]
 
         # create overview of component groups
             self.group_data = pd.DataFrame(
@@ -729,11 +734,31 @@ class ExergyAnalysis:
         #print(group_data)
         for fkt_group, data in group_data.items():
             source_id = node_order.index(fkt_group)
-            links['source'] += [source_id for i in range(len(data))]
-            links['target'] += [
-                node_order.index(target) for target in data.index]
-            links['value'] += [
-                data.loc[target, 'value'] for target in data.index]
+            # links['source'] += [source_id for i in range(len(data))]
+            # links['target'] += [
+            #     node_order.index(target) for target in data.index]
+            # links['value'] += [
+            #     data.loc[target, 'value'] for target in data.index]
+            for target in data.index:
+                if data.loc[target, 'chemical_exergy'] > 0:
+                    links['source'] += [source_id]
+                    links['target'] += [
+                        node_order.index(target)]
+                    links['value'] += [data.loc[target, 'chemical_exergy']]
+                    links['color'].append('rgba(9, 48, 5, 0.8)')
+                if data.loc[target, 'physical_exergy'] > 0:
+                    links['source'] += [source_id]
+                    links['target'] += [
+                        node_order.index(target)]
+                    links['value'] += [data.loc[target, 'physical_exergy']]
+                    links['color'].append('rgba(235, 115, 9, 0.8)')
+                if data.loc[target, 'chemical_exergy'] == 0 and data.loc[target, 'physical_exergy'] == 0:
+                    links['source'] += [source_id for i in range(len(data))]
+                    links['target'] += [
+                        node_order.index(target) for target in data.index]
+                    links['value'] += [
+                        data.loc[target, 'value'] for target in data.index]
+
             # connection colors
             for cat in data['cat']:
                 links['color'].append(colordict[cat])

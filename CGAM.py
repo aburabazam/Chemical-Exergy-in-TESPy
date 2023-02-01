@@ -16,7 +16,8 @@ from tespy.components import (
 from tespy.connections import Connection, Bus
 import plotly.graph_objects as go
 from plotly.offline import plot
-from tespy.tools import document_model, ExergyAnalysis
+# from tespy.tools import document_model, ExergyAnalysis
+from analyses import ExergyAnalysis
 from tespy import __datapath__
 
 def load_Chem_Ex_json(lib="Ahrendts", ChemEx=None):
@@ -164,10 +165,15 @@ for idx in result.index:
 result.loc["AC", "P"] = cmp.P.val
 result.loc["EXP", "P"] = tur.P.val
 
+
 # result.to_csv("validation/cgam-tespy-results.csv")
 
 ean = ExergyAnalysis(nwk, [E_F], [E_P], [E_L])
 ean.analyse(c1.p.val, c1.T.val, Chem_Ex)
+
+# cwd = os.getcwd()
+# ean.connection_data.to_csv(os.path.join(cwd, "connection_data.csv"))
+
 ean.print_results()
 
 links, nodes = ean.generate_plotly_sankey_input()

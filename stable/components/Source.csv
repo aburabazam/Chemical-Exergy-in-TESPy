@@ -1,4 +1,4 @@
 label;comp_type;busses;bus_param;bus_P_ref;bus_char;bus_base;design;offdesign;design_path;local_design;local_offdesign
-ambient air;Source;['Fuel_Bus'];[None];[0.0];['0x7f6cc9c64580'];['bus'];[];[];nan;False;False
-methane;Source;['Fuel_Bus'];[None];[0.0];['0x7f6cc9c64580'];['bus'];[];[];nan;False;False
-feed water;Source;['Product_Bus'];[None];[0.0];['0x7f6cc9c64ee0'];['bus'];[];[];nan;False;False
+methane;Source;['Fuel_Bus'];[None];[0.0];['0x7f96b087e500'];['bus'];[];[];nan;False;False
+ambient air;Source;['Fuel_Bus'];[None];[0.0];['0x7f96b087e500'];['bus'];[];[];nan;False;False
+feed water;Source;['Product_Bus'];[None];[0.0];['0x7f96b087ec80'];['bus'];[];[];nan;False;False
