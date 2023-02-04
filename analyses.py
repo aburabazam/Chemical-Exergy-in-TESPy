@@ -755,13 +755,14 @@ class ExergyAnalysis:
                     links['value'] += [data.loc[target, 'physical_exergy']]
                     links['color'].append('rgba(235, 115, 9, 0.8)')
                 elif data.loc[target, 'chemical_exergy'] <= 0. and data.loc[target, 'physical_exergy'] <= 0.:
+                    cat = data.loc[target, "cat"]
                     links['source'] += [source_id]
                     links['target'] += [
                         node_order.index(target)]
                     links['value'] += [
                         data.loc[target, 'value']]
-                    links['color'].append('rgba(130, 4, 69, 0.8)')
-            # connection colors
+                    links['color'].append(colordict[cat])
+            # connection colorstarget,
             # for cat in data['cat']:
             #     links['color'].append(colordict[cat])
 

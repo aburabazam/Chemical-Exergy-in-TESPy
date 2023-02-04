@@ -1,3 +1,3 @@
 label;comp_type;busses;bus_param;bus_P_ref;bus_char;bus_base;design;offdesign;design_path;local_design;local_offdesign
-chimney;Sink;['Loss_Bus'];[None];[0.0];['0x7f7b63076e30'];['component'];[];[];nan;False;False
-live steam;Sink;['Product_Bus'];[None];[0.0];['0x7f7b63077220'];['component'];[];[];nan;False;False
+chimney;Sink;['Loss_Bus'];[None];[0.0];['0x7fb22fbc2e30'];['component'];[];[];nan;False;False
+live steam;Sink;['Product_Bus'];[None];[0.0];['0x7fb22fbc3220'];['component'];[];[];nan;False;False

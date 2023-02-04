@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4e690a6e-a9a2-42f5-8445-cb310024b185" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CGAM_sankey.html" beforeDir="false" afterPath="$PROJECT_DIR$/CGAM_sankey.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/analyses.py" beforeDir="false" afterPath="$PROJECT_DIR$/analyses.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stable/components/Compressor.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/Compressor.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stable/components/DiabaticCombustionChamber.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/DiabaticCombustionChamber.csv" afterDir="false" />
@@ -49,7 +48,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/aburabazam/PycharmProjects/Chemical-Exergy-in-TESPy&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/aburabzam/PycharmProjects/Chemical-Exergy-in-TESPy&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
@@ -185,14 +184,9 @@
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/CGAM.py</url>
-          <line>179</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/analyses.py</url>
-          <line>735</line>
-          <option name="timeStamp" value="20" />
+          <line>768</line>
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
