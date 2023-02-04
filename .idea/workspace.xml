@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e690a6e-a9a2-42f5-8445-cb310024b185" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Chemical-Exergy-in-TESPy.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sankey_example.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CGAM.py" beforeDir="false" afterPath="$PROJECT_DIR$/CGAM.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CGAM_sankey.html" beforeDir="false" afterPath="$PROJECT_DIR$/CGAM_sankey.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/analyses.py" beforeDir="false" afterPath="$PROJECT_DIR$/analyses.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stable/components/Compressor.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stable/components/Compressor.csv" afterDir="false" />
@@ -84,25 +80,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Doctest Index.get_loc" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
-      <module name="tespy" />
+    <configuration name="analyses" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Chemical-Exergy-in-TESPy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../tespy/tespy/lib/python3.10/site-packages/pandas/core/indexes" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../tespy/tespy/lib/python3.10/site-packages/pandas/core/indexes/base.py" />
-      <option name="CLASS_NAME" value="Index" />
-      <option name="METHOD_NAME" value="get_loc" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/analyses.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Doctests in ExergyAnalysis" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
+    <configuration name="Doctests in ExergyAnalysis (1)" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
       <module name="Chemical-Exergy-in-TESPy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -113,6 +112,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/analyses.py" />
       <option name="CLASS_NAME" value="ExergyAnalysis" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_CLASS" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Doctests in Turbine" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
+      <module name="tespy" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../tespy/src/tespy/components/turbomachinery" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../tespy/src/tespy/components/turbomachinery/turbine.py" />
+      <option name="CLASS_NAME" value="Turbine" />
       <option name="METHOD_NAME" value="" />
       <option name="FOLDER_NAME" value="" />
       <option name="TEST_TYPE" value="TEST_CLASS" />
@@ -138,31 +155,13 @@
       <option name="USE_PATTERN" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="Doctests in indexing" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
-      <module name="Chemical-Exergy-in-TESPy" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../tespy/tespy/lib/python3.10/site-packages/pandas/core" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../tespy/tespy/lib/python3.10/site-packages/pandas/core/indexing.py" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.CGAM" />
+        <item itemvalue="Python tests.Doctests in Turbine" />
+        <item itemvalue="Python.analyses" />
+        <item itemvalue="Python tests.Doctests in ExergyAnalysis (1)" />
         <item itemvalue="Python tests.Doctests in indexing (1)" />
-        <item itemvalue="Python tests.Doctests in indexing" />
-        <item itemvalue="Python tests.Doctest Index.get_loc" />
-        <item itemvalue="Python tests.Doctests in ExergyAnalysis" />
       </list>
     </recent_temporary>
   </component>
@@ -188,7 +187,12 @@
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CGAM.py</url>
           <line>179</line>
-          <option name="timeStamp" value="9" />
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/analyses.py</url>
+          <line>735</line>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -338,7 +338,7 @@ class ExergyAnalysis:
                 conn_exergy_data += [conn.ex_chemical, conn.Ex_chemical]
 
             self.connection_data.loc[conn.label] = conn_exergy_data
-
+        # todo: überprüfen der sankey data + massless exergy
         self.sankey_data = {}
         for label in self.reserved_fkt_groups:
             self.sankey_data[label] = pd.DataFrame(
@@ -362,6 +362,7 @@ class ExergyAnalysis:
                 raise ValueError(msg)
             elif cp.fkt_group not in self.sankey_data:
                # print(cp)
+               # todo: überprüfen der sankey data
                 self.sankey_data[cp.fkt_group] = pd.DataFrame(
                     columns=['value', 'chemical_exergy', 'physical_exergy', 'cat'], dtype='object')
 
@@ -444,7 +445,7 @@ class ExergyAnalysis:
                         'busses passed to the exergy_analysis method.')
                     logging.error(msg)
                     raise hlp.TESPyNetworkError(msg)
-
+                # todo: E_bus als dict mit den versch. werten
                 if b.comps.loc[cp, 'base'] == 'bus':
                     self.bus_data.loc[cp.label, 'E_P'] = cp.E_bus
                     E_F = cp.E_bus / cp.calc_bus_efficiency(b)
@@ -460,7 +461,7 @@ class ExergyAnalysis:
                         cat = 'E_L'
                     else:
                         cat = b.label
-
+                    # todo: wie verhält es sich mit den bussen
                     if cp.fkt_group in self.sankey_data[b.label].index:
                         self.sankey_data[b.label].loc[
                             cp.fkt_group, 'value'] += E_F
@@ -530,7 +531,7 @@ class ExergyAnalysis:
                     if conn.target.label not in comps:
                         target_group = self.component_data.loc[
                             conn.target.label, 'group']
-                        target_value = conn.Ex_physical  #todo: zielgruppe zweimal setzen mit neuer spalte für target_group , index nur numerisch
+                        target_value = conn.Ex_physical
                         target_value += conn.Ex_chemical
                         target_value_chemical = conn.Ex_chemical
                         target_value_physical = conn.Ex_physical
@@ -545,6 +546,7 @@ class ExergyAnalysis:
                         #     self.sankey_data[fkt_group].loc[target_group] = [target_value_physical, cat]
                         #     self.sankey_data[fkt_group]['target_group_physical'][target_group] = target_value_physical
                         #     self.sankey_data[fkt_group]['target_group_chemical'][target_group] = target_value_chemical
+                        # todo: übergeben der werte
                         if target_group in data.index:
                             self.sankey_data[fkt_group].loc[
                                 target_group, 'value'] += target_value
@@ -608,9 +610,6 @@ class ExergyAnalysis:
         """
         for fkt_group in group_data.copy().keys():
             source_groups = self.single_group_input(fkt_group, group_data)
-            print(fkt_group)
-            print(source_groups)
-            print(group_data[fkt_group])
             if len(source_groups) == 1 and len(group_data[fkt_group]) == 1:
 
                 source_group = source_groups[0]
@@ -732,148 +731,39 @@ class ExergyAnalysis:
             'color': []
         }
         #print(group_data)
+        i = 0
         for fkt_group, data in group_data.items():
             source_id = node_order.index(fkt_group)
-            # links['source'] += [source_id for i in range(len(data))]
-            # links['target'] += [
-            #     node_order.index(target) for target in data.index]
-            # links['value'] += [
-            #     data.loc[target, 'value'] for target in data.index]
+            # for fkt_group, data in group_data.items():
+            #     source_id = node_order.index(fkt_group)
+            #     links['source'] += [source_id for i in range(len(data))]
+            #     links['target'] += [
+            #         node_order.index(target) for target in data.index]
+            #     links['value'] += [
+            #         data.loc[target, 'value'] for target in data.index]
             for target in data.index:
-                if data.loc[target, 'chemical_exergy'] > 0:
+                if data.loc[target, 'chemical_exergy'] > 0.:
                     links['source'] += [source_id]
                     links['target'] += [
                         node_order.index(target)]
                     links['value'] += [data.loc[target, 'chemical_exergy']]
                     links['color'].append('rgba(9, 48, 5, 0.8)')
-                if data.loc[target, 'physical_exergy'] > 0:
+                if data.loc[target, 'physical_exergy'] > 0.:
                     links['source'] += [source_id]
                     links['target'] += [
                         node_order.index(target)]
                     links['value'] += [data.loc[target, 'physical_exergy']]
                     links['color'].append('rgba(235, 115, 9, 0.8)')
-                if data.loc[target, 'chemical_exergy'] == 0 and data.loc[target, 'physical_exergy'] == 0:
-                    links['source'] += [source_id for i in range(len(data))]
+                elif data.loc[target, 'chemical_exergy'] <= 0. and data.loc[target, 'physical_exergy'] <= 0.:
+                    links['source'] += [source_id]
                     links['target'] += [
-                        node_order.index(target) for target in data.index]
+                        node_order.index(target)]
                     links['value'] += [
-                        data.loc[target, 'value'] for target in data.index]
-
+                        data.loc[target, 'value']]
+                    links['color'].append('rgba(130, 4, 69, 0.8)')
             # connection colors
-            for cat in data['cat']:
-                links['color'].append(colordict[cat])
-
-        return links, node_order
-
-    def generate_plotly_sankey_input_chem_phys_ex(
-        self, node_order=[], colors={}, display_thresold=1e-3):
-        """Generate input data for sankey plots.
-
-        Only exergy flow above the display threshold is included. All
-        component groups with transit only (one input and one output) are cut
-        out of the display.
-
-        Parameters
-        ----------
-        node_order : list
-            Order for the nodes in the sankey diagram (optional).
-            In case no order is passed, a generic order will be used.
-
-        colors : dict
-            Dictionary containing a color for every stream type (optional).
-            Stream type is the key, the color is the corresponding value.
-            Stream types are:
-
-            - :code:`E_F`, :code:`E_P`, :code:`E_L`, :code:`E_D`
-            - names of the pure fluids of the tespy Network
-            - :code:`mix` (used in case of any gas mixture)
-            - labels of internal busses
-
-            In case no colors are passed, the matplotlib :code:`Set1` colormap
-            will be applied.
-
-        Returns
-        -------
-        tuple
-            Tuple containing the links and node_order for the plotly sankey
-            diagram.
-        """
-        group_data = self.sankey_data.copy()
-
-        for fkt_group, data in self.sankey_data.items():
-            group_data[fkt_group] = group_data[fkt_group][
-                data['value'].abs() >= display_thresold]
-
-        self.remove_transit_groups(group_data)
-
-        if len(node_order) == 0:
-            node_order = (
-                ['E_F'] + [b.label for b in self.E_F] +
-                [fkt_group for fkt_group in self.group_data.index] +
-                [b.label for b in self.internal_busses + self.E_P + self.E_L] +
-                ['E_P', 'E_L', 'E_D'])
-        else:
-            missing = []
-            for node in group_data.keys():
-                if node not in node_order:
-                    missing += [node]
-
-            if len(missing) > 0:
-                msg = (
-                    'The list of nodes passed is missing the following '
-                    'nodes: "' + '", "'.join(missing) + '".')
-                logging.error(msg)
-                raise ValueError(msg)
-
-        num_fluids = len(self.nw.fluids)
-        num_colors = 4 + num_fluids + len(self.internal_busses)
-        if num_fluids > 1:
-            num_colors += 1
-
-        cmap = cm.get_cmap('Set1')(np.linspace(0.0, 1.0, num_colors + 1))
-        cmap[:, 0:3] *= 255
-        cmap[:, 3] *= 0.75
-        rgba_list = []
-        for i in range(cmap.shape[0]):
-            rgba_list += [
-                'rgba(' +
-                str(cmap[i, 0]) + ', ' +
-                str(cmap[i, 1]) + ', ' +
-                str(cmap[i, 2]) + ', ' +
-                str(cmap[i, 3]) + ')']
-
-        colordict = {}
-        colordict['E_P'] = rgba_list[0]
-        colordict['E_F'] = rgba_list[1]
-        colordict['E_D'] = rgba_list[2]
-        colordict['E_L'] = rgba_list[3]
-        i = 4
-        for f in self.nw.fluids:
-            colordict[f] = rgba_list[i]
-            i += 1
-        for b in self.internal_busses:
-            colordict[b.label] = rgba_list[i]
-            i += 1
-
-        colordict.update(colors)
-        colordict['mix'] = rgba_list[i + 1]
-        links = {
-            'source': [],
-            'target': [],
-            'value': [],
-            'color': []
-        }
-        # print(group_data)
-        for fkt_group, data in group_data.items():
-            source_id = node_order.index(fkt_group)
-            links['source'] += [source_id for i in range(len(data))]
-            links['target'] += [
-                node_order.index(target) for target in data.index]
-            links['value'] += [
-                data.loc[target, 'value'] for target in data.index]
-            # connection colors
-            for cat in data['cat']:
-                links['color'].append(colordict[cat])
+            # for cat in data['cat']:
+            #     links['color'].append(colordict[cat])
 
         return links, node_order
 
