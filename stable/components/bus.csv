@@ -1,8 +1,8 @@
 label;P;P_set
-total power;-29999999.999999993;True
+total power;-29999999.99999999;True
 Loss_Bus;0.0;False
-Product_Bus;-29999999.999999993;False
+Product_Bus;-29999999.99999999;False
 Fuel_Bus;0.0;False
-heat output;37682618.66528835;False
-power output;-29999999.999999993;False
-fuel input;82374461.87463638;False
+heat output;37682618.66528836;False
+power output;-29999999.99999999;False
+fuel input;82374461.87462214;False

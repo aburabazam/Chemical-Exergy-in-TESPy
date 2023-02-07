@@ -1,2 +1,2 @@
 label;comp_type;busses;bus_param;bus_P_ref;bus_char;bus_base;design;offdesign;design_path;local_design;local_offdesign;lamb;lamb_set;lamb_var;ti;ti_set;ti_var;pr;pr_set;pr_var;eta;eta_set;eta_var;Q_loss;Q_loss_set;Q_loss_var
-combustion chamber;DiabaticCombustionChamber;['fuel input'];[None];[82374461.87463638];['0x7fb22fbc3ac0'];['bus'];[];[];nan;False;False;3.1838815617604412;False;False;82374461.87463638;False;False;0.95;True;False;0.9799999999996768;True;False;-1647489.2375193513;False;False
+combustion chamber;DiabaticCombustionChamber;['fuel input'];[None];[82374461.87462214];['0x7f60c9779990'];['bus'];[];[];nan;False;False;3.1838815617609963;False;False;82374461.87462214;False;False;0.95;True;False;0.9799999999996802;True;False;-1647489.237518783;False;False
